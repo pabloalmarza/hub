@@ -1,19 +1,9 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
-
 pool:
-  vmImage: ubuntu-18.04
-
+  vmImage: ubuntu-latest
 steps:
 - script: |
     ping asml.app.blackduck.com
     ping nicetest.app.blackduck.com
     ping cegid.app.blackduck.com
-    wget https://sig-repo.synopsys.com/artifactory/bds-integrations-release/com/synopsys/integration/synopsys-detect/6.9.1/synopsys-detect-6.9.1-air-gap.zip -P /home/vsts/work/1
-    unzip /home/vsts/work/1/*.zip
-  displayName: 'Run a multi-line script'
