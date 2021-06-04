@@ -10,9 +10,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: nslookup cegid.app.blackduck.com
-  displayName: 'Run a one-line script'
-
 - script: |
     nslookup cegid.app.blackduck.com
     ping cegid.app.blackduck.com
