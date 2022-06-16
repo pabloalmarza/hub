@@ -1,10 +1,21 @@
-trigger:
-- master
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+trigger: none
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 steps:
-
-- task: SynopsysDetectTask@7
+- task: NuGetToolInstaller@1
   inputs:
-    BlackDuckService: 'blackduck1'
-    DetectVersion: '7.13.2'
+    checkLatest: true
+- task: SynopsysDetectTask@7
+  displayName: Scan project in Black Duck
+  inputs:
+    BlackDuckService: blackduck1
+    DetectVersion: 7.13.2
+    DetectArguments: |
+      --blackduck.trust.cert=true
+      --detect.project.name=ADO_TEST
+      --blackduck.api.token=ZDFkM2ZlNzItYWRkYS00ZjNkLWJkZGYtNWMyOThhN2ZhYzczOmE0ODJmNGNiLTE1OTAtNGYyOS04MjQ5LTA0YzJlZjkyMGJhZg==
+      --detect.detector.search.depth=6
