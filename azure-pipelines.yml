@@ -9,13 +9,12 @@ steps:
 - task: NuGetToolInstaller@1
   inputs:
     checkLatest: true
-- task: SynopsysDetectTask@7
-  displayName: Scan project in Black Duck
+- task: SynopsysDetectTask@8
   inputs:
-    BlackDuckService: blackduck1
-    DetectVersion: 8.0.0
+    BlackDuckService: 'blackduck1'
     DetectArguments: |
       --blackduck.trust.cert=true
       --detect.project.name=ADO_TEST
       --blackduck.api.token=Y2E4NWQ0NTMtZmVkZi00NzcyLThlZWQtM2U3YzVjMWYzZDVhOjViYTMxNmYzLWI1ZmQtNDkzMi1iNjIwLWM2YjJmOTdlMTc2Zg==
       --detect.detector.search.depth=6
+    DetectVersion: 'latest'
