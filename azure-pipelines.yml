@@ -17,4 +17,5 @@ steps:
       --detect.project.name=ADO_TEST
       --blackduck.api.token=Y2E4NWQ0NTMtZmVkZi00NzcyLThlZWQtM2U3YzVjMWYzZDVhOjViYTMxNmYzLWI1ZmQtNDkzMi1iNjIwLWM2YjJmOTdlMTc2Zg==
       --detect.detector.search.depth=6
+      --logging.level.detect=TRACE
     DetectVersion: 'latest'
