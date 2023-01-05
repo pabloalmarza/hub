@@ -13,9 +13,9 @@ steps:
   displayName: Scan project in Black Duck
   inputs:
     BlackDuckService: blackduck1
-    DetectVersion: 7.13.2
+    DetectVersion: 8.0.0
     DetectArguments: |
       --blackduck.trust.cert=true
       --detect.project.name=ADO_TEST
-      --blackduck.api.token=ZDFkM2ZlNzItYWRkYS00ZjNkLWJkZGYtNWMyOThhN2ZhYzczOmE0ODJmNGNiLTE1OTAtNGYyOS04MjQ5LTA0YzJlZjkyMGJhZg==
+      --blackduck.api.token=Y2E4NWQ0NTMtZmVkZi00NzcyLThlZWQtM2U3YzVjMWYzZDVhOjViYTMxNmYzLWI1ZmQtNDkzMi1iNjIwLWM2YjJmOTdlMTc2Zg==
       --detect.detector.search.depth=6
