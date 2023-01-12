@@ -52,17 +52,7 @@ stages:
           if (Test-Path $FileName) {
             Remove-Item $FileName -verbose
           }
-    - task: synopsys-detect.synopsys-detect.synopsys-detect-task.SynopsysDetectTask@2
-      displayName: 'Run Synopsys Detect for your build '
-      inputs:
-        products: BD
-        blackDuckService: 'blackduck1'
-        detectArguments: |
-          --blackduck.trust.cert=true
-          --detect.project.name=$(Build.Repository.Name)
-          --detect.blackduck.signature.scanner.paths=$(System.DefaultWorkingDirectory)
-          --detect.policy.check.fail.on.severities=BLOCKER
-          --detect.project.version.name="Default Detect Version"
+
 #    - task: synopsys-detect.synopsys-detect.synopsys-detect-task.SynopsysDetectTask@7
 #      displayName: 'Run Synopsys Detect for your build '
 #      inputs:
