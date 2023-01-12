@@ -10,8 +10,6 @@ trigger:
   tags:
     include:
       - '*'
-pool:
-  vmImage: windows-latest
 
 variables:
   # Agent VM image name
@@ -30,6 +28,10 @@ stages:
   jobs:
   - job: BlackDuck
     displayName: Black Duck Scan
+    pool:
+      vmImage: windows-latest
+      demands:
+      - python3.8
     steps:
     - task: UsePythonVersion@0
       displayName: 'Use Python $(pythonVersion)'
