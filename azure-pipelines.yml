@@ -9,9 +9,11 @@ steps:
 - task: NuGetToolInstaller@1
   inputs:
     checkLatest: true
-- task: PowerShell@2
+- task: SynopsysDetectTask@8
   inputs:
-    targetType: 'inline'
-    script: |
-      $Env:DETECT_LATEST_RELEASE_VERSION = 8.4.0
-      powershell "[Net.ServicePointManager]::SecurityProtocol = 'tls12'; irm https://detect.synopsys.com/detect8.ps1?$(Get-Random) | iex; detect" --blackduck.url=https://saastest.app.blackduck.com --blackduck.trust.cert=true --detect.project.name=ADO_TEST --blackduck.api.token=Y2E4NWQ0NTMtZmVkZi00NzcyLThlZWQtM2U3YzVjMWYzZDVhOjViYTMxNmYzLWI1ZmQtNDkzMi1iNjIwLWM2YjJmOTdlMTc2Zg== --detect.detector.search.depth=6
+    BlackDuckService: 'blackduck1'
+    DetectArguments: |
+      --blackduck.trust.cert=true
+      --detect.project.name=ADO_TEST
+      --detect.detector.search.depth=6
+    DetectVersion: 'latest'
