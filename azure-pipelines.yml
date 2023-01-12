@@ -34,8 +34,7 @@ stages:
       inputs:
         versionSpec: $(pythonVersion)
     - bash: |
-        python -m pip install --upgrade pip
-        pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt
+        echo "hello"
       workingDirectory: $(workingDirectory)
       displayName: 'Install application dependencies'
     - task: PowerShell@2
@@ -48,6 +47,16 @@ stages:
           if (Test-Path $FileName) {
             Remove-Item $FileName -verbose
           }
+    - task: SynopsysDetectTask@8
+      inputs:
+        BlackDuckService: 'blackduck1'
+        DetectArguments: |
+          --blackduck.trust.cert=true
+                    --detect.project.name=$(Build.Repository.Name)
+                    --detect.blackduck.signature.scanner.paths=$(System.DefaultWorkingDirectory)
+                    --detect.policy.check.fail.on.severities=BLOCKER
+                    --detect.project.version.name="Default Detect Version"
+        DetectVersion: 'latest'
 
 #    - task: synopsys-detect.synopsys-detect.synopsys-detect-task.SynopsysDetectTask@7
 #      displayName: 'Run Synopsys Detect for your build '
