@@ -13,7 +13,7 @@ trigger:
 
 variables:
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'windows-latest'
 
   # Working Directory
   workingDirectory: '$(System.DefaultWorkingDirectory)/'
