@@ -28,10 +28,6 @@ stages:
   jobs:
   - job: BlackDuck
     displayName: Black Duck Scan
-    pool:
-      name: hrXReleasePipeline
-      demands:
-      - python3.8
     steps:
     - task: UsePythonVersion@0
       displayName: 'Use Python $(pythonVersion)'
