@@ -47,7 +47,7 @@ stages:
           if (Test-Path $FileName) {
             Remove-Item $FileName -verbose
           }
-    - task: SynopsysDetectTask@8@2
+    - task: SynopsysDetectTask@2
       displayName: 'Run Synopsys Detect for your build '
       inputs:
         products: BD
