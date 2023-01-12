@@ -1,19 +1,60 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-trigger: none
-pool:
-  vmImage: ubuntu-latest
-steps:
-- task: NuGetToolInstaller@1
-  inputs:
-    checkLatest: true
-- task: SynopsysDetectTask@8
-  inputs:
-    BlackDuckService: 'blackduck1'
-    DetectArguments: |
-      --blackduck.trust.cert=true
-      --detect.project.name=ADO_TEST
-      --detect.detector.search.depth=6
-    DetectVersion: 'latest'
+trigger:
+  branches:
+    include:
+      - develop
+  tags:
+    include:
+      - '*'
+
+variables:
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+  # Working Directory
+  workingDirectory: '$(System.DefaultWorkingDirectory)/'
+
+  # Python version
+  pythonVersion: '3.8'
+
+
+stages:
+- stage: CodeAnalysis
+  displayName: Code Analysis
+  jobs:
+  - job: BlackDuck
+    displayName: Black Duck Scan
+    pool:
+      name: hrXReleasePipeline
+      demands:
+      - python3.8
+    steps:
+    - task: UsePythonVersion@0
+      displayName: 'Use Python $(pythonVersion)'
+      inputs:
+        versionSpec: $(pythonVersion)
+    - bash: |
+        python -m pip install --upgrade pip
+        pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt
+      workingDirectory: $(workingDirectory)
+      displayName: 'Install application dependencies'
+    - task: PowerShell@2
+      displayName: 'Prevent false Poetry error'
+      inputs: 
+        targetType: 'inline'
+        script: |
+          # Workaround to be removed once we can run Detect v8
+          $FileName = "pyproject.toml"
+          if (Test-Path $FileName) {
+            Remove-Item $FileName -verbose
+          }
+    - task: synopsys-detect.synopsys-detect.synopsys-detect-task.SynopsysDetectTask@2
+      displayName: 'Run Synopsys Detect for your build '
+      inputs:
+        products: BD
+        blackDuckService: 'blackduck1'
+        detectArguments: |
+          --blackduck.trust.cert=true
+          --detect.project.name=$(Build.Repository.Name)
+          --detect.blackduck.signature.scanner.paths=$(System.DefaultWorkingDirectory)
+          --detect.policy.check.fail.on.severities=BLOCKER
+          --detect.project.version.name="Default Detect Version"
