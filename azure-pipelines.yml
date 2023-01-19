@@ -29,7 +29,7 @@ stages:
   - job: BlackDuck
     displayName: Black Duck Scan
     pool:
-      vmImage: windows-2019
+      name: Windows NT
     steps:
     - task: UsePythonVersion@0
       displayName: 'Use Python $(pythonVersion)'
