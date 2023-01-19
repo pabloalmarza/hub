@@ -35,10 +35,6 @@ stages:
       displayName: 'Use Python $(pythonVersion)'
       inputs:
         versionSpec: $(pythonVersion)
-    - bash: |
-        echo "hello"
-      workingDirectory: $(workingDirectory)
-      displayName: 'Install application dependencies'
     - task: PowerShell@2
       displayName: 'Prevent false Poetry error'
       inputs: 
